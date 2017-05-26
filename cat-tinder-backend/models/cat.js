@@ -8,6 +8,18 @@ module.exports = function(sequelize, DataTypes) {
     personality: DataTypes.STRING,
     age: DataTypes.INTEGER
   }, {
+    instanceMethods: {
+      toJSON(){
+        return {
+          color: this.get('color'),
+          breed: this.get('breed'),
+          gender: this.get('gender'),
+          habitat: this.get('habitat'),
+          personality: this.get('personality'),
+          age: this.get('age')
+        }
+      }
+    },
     classMethods: {
       associate: function(models) {
         // associations can be defined here

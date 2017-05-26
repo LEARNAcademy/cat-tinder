@@ -15,6 +15,13 @@ app.get('/', function (request, response) {
   response.json({message: 'API Example App'})
 });
 
+app.get('/cats', function(request, response){
+  Cat.findAll().then(function(cats){
+    response.status(200)
+    response.json({status: 'success', cats: cats})
+  })
+})
+
 app.post('/create_cat', function(request, response){
   console.log(request.body)
   let catParams = request.body.cat

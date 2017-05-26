@@ -20,6 +20,9 @@ label {
   margin-bottom: 10px;
 }
 
+.cat-list div{
+  border: 2px solid black;
+}
 .App-header h2 {
   margin: 0;
 }
