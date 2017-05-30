@@ -9,6 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.3"
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "pg": "^6.2.3",
+    "sequelize": "^3.30.4",
+    "sequelize-cli": "^2.7.0",
+    "uuid": "^3.0.1"
   }
 }
