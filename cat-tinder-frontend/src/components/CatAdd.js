@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import {addCat} from '../actions'
 
 class CatAdd extends Component {
   constructor(props){
@@ -27,37 +28,8 @@ class CatAdd extends Component {
   }
 
   handleSubmit(e){
-    var appScope = this
     e.preventDefault()
-    // set up the headers and request
-    const params = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(this.state)
-    }
-    // send state to the backend server
-    fetch("http://localhost:4000/create_cat", params).then(function(response){
-      // if post is successful update the message to be successful
-      // and update the state to equal what we get back from the server
-      if(response.status === 200){
-        response.json().then(function(body){
-          appScope.setState({
-            cat: body.cat,
-            message: 'successfully created cat profile'
-          })
-        })
-      } else {
-        this.setState({
-          message: 'error'
-        })
-        // else update the message to say there was a failure
-      }
-    }).catch(function(error){
-      this.setState({
-        message: 'there was an error: ' + error.errors.join("\n")
-      })
-    })
-
+    addCat(this.state.cat)
   }
 
   render(){
@@ -69,7 +41,6 @@ class CatAdd extends Component {
             <Link to="/">Back</Link>
           </div>
         </div>
-        {this.state.message}
 
         <form className='form' onSubmit={this.handleSubmit.bind(this)}>
           <div className='formGroup'>

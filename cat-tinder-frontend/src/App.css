@@ -37,3 +37,10 @@ label {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+div.message {
+  text-align: center;
+  padding: 10px 0;
+  background-color: rgba(28, 255, 74, 0.38);
+  color: black;
+}

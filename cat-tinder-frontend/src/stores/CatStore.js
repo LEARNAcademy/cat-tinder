@@ -23,6 +23,7 @@ class CatStore extends EventEmitter{
       }
     ]
     this.newCat = {}
+    this.message = ""
   }
 
   getCats(){
@@ -35,14 +36,24 @@ class CatStore extends EventEmitter{
 
   updateNewCat(attributes){
     this.newCat = attributes
-    debugger
     this.cats.push(attributes)
+    this.updateMessage('Cat has been added')
     this.emit('change')
   }
 
   updateCats(attributes){
     this.cats = attributes
+    this.updateMessage('Cats are loaded')
     this.emit('change')
+  }
+
+  getMessage(){
+    return this.message
+  }
+
+  updateMessage(newMessage){
+    this.message = newMessage
+    this.emit('message')
   }
 
   handleActions(action){
