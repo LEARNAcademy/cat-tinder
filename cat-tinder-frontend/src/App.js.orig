@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import CatAdd from './components/CatAdd'
-import UserAdd from './components/UserAdd'
 import CatIndex from './components/CatIndex'
+<<<<<<< HEAD
+import { updateCats } from './actions'
+=======
 import catStore from './stores/CatStore'
-import userStore from './stores/UserStore'
 import {updateCats} from './actions'
+>>>>>>> store2
 
 class App extends Component {
   constructor(props){
     super(props)
+<<<<<<< HEAD
+    // trigger cat loading
+    updateCats()
+=======
     updateCats()
     this.state = {
       message: catStore.getMessage()
     }
+>>>>>>> store2
   }
 
   updateMessage(){
@@ -23,14 +30,8 @@ class App extends Component {
     })
   }
 
-  updateUserMessage(){
-    this.setState({
-      message: userStore.getMessage()
-    })
-  }
   componentWillMount(){
     catStore.on('message', this.updateMessage.bind(this))
-    userStore.on('message', this.updateUserMessage.bind(this))
   }
 
   render() {
@@ -41,7 +42,6 @@ class App extends Component {
           <div className="App container">
             <Route exact path="/" component={CatIndex} />
             <Route exact path="/add" component={CatAdd} />
-            <Route exact path="/register" component={UserAdd} />
           </div>
         </Router>
       </div>

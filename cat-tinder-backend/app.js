@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var app = express();
 var Cat = require('./models').Cat
+var User = require('./models').User
 var cors = require('cors')
 
 const corsOptions = {
@@ -28,6 +29,18 @@ app.post('/create_cat', function(request, response){
   Cat.create(catParams).then(function(cat){
     response.status(200)
     response.json({status: 'success', cat: cat})
+  }).catch(function(error){
+    response.status(400)
+    response.json({status: 'error', error: error})
+  })
+})
+
+app.post('/create_user', function(request, response){
+  console.log(request.body)
+  let userParams = request.body.user
+  User.create(userParams).then(function(user){
+    response.status(200)
+    response.json({status: 'success', user: user})
   }).catch(function(error){
     response.status(400)
     response.json({status: 'error', error: error})

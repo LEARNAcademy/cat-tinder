@@ -1,0 +1,93 @@
+import {EventEmitter} from 'events'
+import Dispatcher from '../Dispatcher'
+
+class CatStore extends EventEmitter{
+  constructor(){
+    super()
+    this.cats = [
+      {
+        color: 'blue',
+        breed: 'siamiese',
+        gender: 'Male',
+        habitat: 'Outdoor',
+        personality: 'smug',
+        age: '8'
+      },
+      {
+        color: 'green',
+        breed: 'minx',
+        gender: 'Male',
+        habitat: 'Outdoor',
+        personality: 'smart',
+        age: '4'
+      }
+    ]
+    this.newCat = {}
+<<<<<<< HEAD
+=======
+    this.message = ""
+>>>>>>> store2
+  }
+
+  getCats(){
+    return this.cats
+  }
+
+  getNewCat(){
+    return this.newCat
+  }
+
+  updateNewCat(attributes){
+    this.newCat = attributes
+<<<<<<< HEAD
+=======
+    this.cats.push(attributes)
+    this.updateMessage('Cat has been added')
+>>>>>>> store2
+    this.emit('change')
+  }
+
+  updateCats(attributes){
+    this.cats = attributes
+<<<<<<< HEAD
+    this.emit('change')
+  }
+
+  handleActions(action){
+    switch(action.type){
+      case("CREATE_CAT"):{
+        this.updateNewCat(action.attributes)
+=======
+    this.updateMessage('Cats are loaded')
+    this.emit('change')
+  }
+
+  getMessage(){
+    return this.message
+  }
+
+  updateMessage(newMessage){
+    this.message = newMessage
+    this.emit('message')
+  }
+
+  handleActions(action){
+    switch(action.type){
+      case("CREATE_CAT"):{
+        this.updateNewCat(action.cat)
+>>>>>>> store2
+        break
+      }
+      case("UPDATE_CATS"):{
+        this.updateCats(action.cats)
+        break
+      }
+      default:{}
+    }
+  }
+}
+
+const store = new CatStore()
+Dispatcher.register(store.handleActions.bind(store))
+window.store = store
+export default store
