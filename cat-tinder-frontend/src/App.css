@@ -22,6 +22,8 @@ label {
 
 .cat-list div{
   border: 2px solid black;
+  height: 180px;
+  margin: 10px;
 }
 .App-header h2 {
   margin: 0;
