@@ -29,7 +29,7 @@ class CatAdd extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-    addCat(this.state.cat)
+    addCat(this.state)
   }
 
   render(){
