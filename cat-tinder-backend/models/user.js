@@ -1,4 +1,4 @@
-var uuid = require("uuid")
+const uuid = require('uuid/v1')
 var crypto = require("crypto")
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -52,12 +52,25 @@ module.exports = function(sequelize, DataTypes) {
         //compare encryptedUnverifiedPassword with password
         return encryptedUnverifiedPassword === this.get('encryptedPassword')
       },
-
+      setAuthToken(){
+         const token = uuid()
+         const expiration = new Date()
+         expiration.setMonth(expiration.getMonth() + 1)
+         this.setDataValue('authToken', token)
+         this.setDataValue('authTokenExpiration', expiration)
+       }
     },
     classMethods: {
       associate: function(models) {
         // associations can be defined here
       }
+    },
+    hooks:{
+      // Adds a hook to generate the users token when user is created
+      beforeCreate: function(user, options){
+        user.setAuthToken()
+      }
+
     }
   });
   return User;

@@ -14,8 +14,6 @@ class UserStore extends EventEmitter{
 
   updateUser(attributes){
     this.user = attributes
-    this.message = "User Created"
-    this.emit('message')
   }
 
   getMessage(){
@@ -26,6 +24,15 @@ class UserStore extends EventEmitter{
     switch(action.type){
       case("CREATE_USER"):{
         this.updateUser(action.user)
+        this.message = "User Created"
+        this.emit('message')
+        break
+      }
+      case("LOGIN_USER"):{
+        this.updateUser(action.user)
+        this.message = "User Logged In"
+        this.emit('message')
+        this.emit('login')
         break
       }
       default:{}

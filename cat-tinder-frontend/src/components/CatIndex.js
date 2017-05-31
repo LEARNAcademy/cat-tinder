@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
 import CatListing from './CatListing'
 import catStore from '../stores/CatStore'
 
@@ -37,9 +36,6 @@ class CatIndex extends Component {
       <div>
         <div className="App-header">
           <h2>Cat List</h2>
-          <div className="pull-right">
-            <Link to="/add">Add</Link>
-          </div>
         </div>
         <div className="cat-list row">
           {this.renderCats()}

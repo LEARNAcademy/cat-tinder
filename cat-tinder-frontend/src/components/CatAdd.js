@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {addCat} from '../actions'
+import userStore from '../stores/UserStore'
 
 class CatAdd extends Component {
   constructor(props){
@@ -30,6 +31,22 @@ class CatAdd extends Component {
   handleSubmit(e){
     e.preventDefault()
     addCat(this.state)
+  }
+
+  componentWillMount(){
+    let currentUser = userStore.getUser()
+    if(currentUser === null){
+      this.props.history.push("/login")
+      return false
+    }
+  }
+
+  componentWillUpdate(){
+    let currentUser = userStore.getUser()
+    if(currentUser === null){
+      this.props.history.push("/login")
+      return false
+    }
   }
 
   render(){

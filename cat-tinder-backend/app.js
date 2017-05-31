@@ -12,6 +12,26 @@ app.use(cors())
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
+const authorization = function(request, response, next){
+  const token = request.query.authToken || request.body.authToken
+  if(token){
+    User.findOne({
+      where: {authToken: token}
+    }).then((user)=>{
+      if(user){
+        request.currentUser = user
+        next()
+      }else{
+        response.status(401)
+        response.json({message:'Authorization Token Invalid'})
+      }
+    })
+  }else{
+    response.status(401)
+    response.json({message: 'Authorization Token Required'})
+  }
+}
+
 app.get('/', function (request, response) {
   response.json({message: 'API Example App'})
 });
@@ -23,7 +43,7 @@ app.get('/cats', function(request, response){
   })
 })
 
-app.post('/create_cat', function(request, response){
+app.post('/create_cat', authorization, function(request, response){
   console.log(request.body)
   let catParams = request.body.cat
   Cat.create(catParams).then(function(cat){
@@ -33,6 +53,26 @@ app.post('/create_cat', function(request, response){
     response.status(400)
     response.json({status: 'error', error: error})
   })
+})
+
+app.post('/login_user', function(request, response){
+  // look up the user by username
+  User.findOne({where: {username: request.body.user.username}}).then(function(user){
+    if(user){
+      // check the password and return 200 & the user if valid
+      if(user.verifyPassword(request.body.user.password)){
+        response.status(200)
+        response.json({status: 'success', user: user})
+      } else {
+        response.status(401)
+        response.json({status: 'error', error: 'could not log in'})
+      }
+    } else {
+      response.status(401)
+      response.json({status: 'error', error: 'could not log in'})
+    }
+  })
+  // return 401 unauthorized if not valid
 })
 
 app.post('/create_user', function(request, response){
