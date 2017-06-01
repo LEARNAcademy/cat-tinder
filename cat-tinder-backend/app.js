@@ -3,12 +3,12 @@ var bodyParser = require('body-parser')
 var app = express();
 var Cat = require('./models').Cat
 var User = require('./models').User
-var cors = require('cors')
 
-const corsOptions = {
-  origin: 'http://localhost:3000'
-}
-app.use(cors())
+var corsPrefetch = require('cors-prefetch-middleware').default
+var imagesUpload = require('images-upload-middleware').default
+
+app.use(corsPrefetch)
+
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
@@ -86,6 +86,12 @@ app.post('/create_user', function(request, response){
     response.json({status: 'error', error: error})
   })
 })
+
+
+app.post('/files', imagesUpload(
+    './public/files',
+    'http://localhost:4000/files'
+));
 
 app.listen(4000, function () {
  console.log('listening on port 4000!');

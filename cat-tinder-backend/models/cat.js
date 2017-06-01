@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     gender: DataTypes.STRING,
     habitat: DataTypes.STRING,
     personality: DataTypes.STRING,
-    age: DataTypes.INTEGER
+    age: DataTypes.INTEGER,
+    imageUrl: DataTypes.STRING
   }, {
     instanceMethods: {
       toJSON(){
@@ -16,7 +17,8 @@ module.exports = function(sequelize, DataTypes) {
           gender: this.get('gender'),
           habitat: this.get('habitat'),
           personality: this.get('personality'),
-          age: this.get('age')
+          age: this.get('age'),
+          imageUrl: this.get('imageUrl')
         }
       }
     },

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {addCat} from '../actions'
 import userStore from '../stores/UserStore'
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
 
 class CatAdd extends Component {
   constructor(props){
@@ -49,6 +51,21 @@ class CatAdd extends Component {
     }
   }
 
+  handleImage(err, response){
+    debugger
+    if(err){
+      //TODO
+    } else {
+      let event = {
+        target: {
+          name: 'imageUrl',
+          value: response
+        }
+      }
+      this.handleChange(event)
+    }
+  }
+
   render(){
     return(
       <div>
@@ -58,7 +75,13 @@ class CatAdd extends Component {
             <Link to="/">Back</Link>
           </div>
         </div>
-
+        <ImagesUploader
+         url="http://localhost:4000/files"
+         optimisticPreviews
+         multiple={false}
+         onLoadEnd={this.handleImage.bind(this)}
+         label="Upload a picture"
+         />
         <form className='form' onSubmit={this.handleSubmit.bind(this)}>
           <div className='formGroup'>
             <label htmlFor='color'>Color</label>

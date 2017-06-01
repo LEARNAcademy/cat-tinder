@@ -7,6 +7,9 @@ class CatListing extends Component {
       <div className="col-xs-3">
         <ul>
           <li>
+            <img src={this.props.cat.imageUrl} className='cat-image'></img>
+          </li>
+          <li>
             {this.props.cat.color}
           </li>
           <li>

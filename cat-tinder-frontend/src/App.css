@@ -22,7 +22,7 @@ label {
 
 .cat-list div{
   border: 2px solid black;
-  height: 180px;
+  height: 250px;
   margin: 10px;
 }
 .App-header h2 {
@@ -43,4 +43,9 @@ div.message {
   padding: 10px 0;
   background-color: rgba(28, 255, 74, 0.38);
   color: black;
+}
+
+img.cat-image {
+  max-width: 100px;
+  max-height: 100px;
 }
