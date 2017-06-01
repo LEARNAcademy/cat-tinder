@@ -2,6 +2,26 @@ import catStore from './stores/CatStore'
 import userStore from './stores/UserStore'
 import Dispatcher from './Dispatcher'
 
+export function loginOrRedirect(props){
+  let currentUser = userStore.getUser()
+  if(currentUser === null){
+    props.history.push("/login")
+    return false
+  }
+  return true
+}
+
+export function userLogout(){
+  Dispatcher.dispatch({
+    type: 'LOGOUT'
+  })
+}
+export function checkLogin(){
+  Dispatcher.dispatch({
+    type: 'CHECK_LOGIN'
+  })
+}
+
 export function updateCats(){
   // make the api calls to get the list of cats
   const params = {
@@ -47,7 +67,7 @@ export function addCat(attributes){
           cat: body.cat
         })
       })
-    } else if(response.status == 401) {
+    } else if(response.status === 401) {
       catStore.updateMessage("You Need To Log In First")
       //TODO redirect to login
     }

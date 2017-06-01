@@ -7,14 +7,16 @@ import CatIndex from './components/CatIndex'
 import UserLogin from './components/UserLogin'
 import catStore from './stores/CatStore'
 import userStore from './stores/UserStore'
-import {updateCats} from './actions'
+import {updateCats, checkLogin, userLogout} from './actions'
 
 class App extends Component {
   constructor(props){
     super(props)
+    checkLogin()
     updateCats()
     this.state = {
-      message: catStore.getMessage()
+      message: catStore.getMessage(),
+      currentUser: userStore.getUser()
     }
   }
 
@@ -33,6 +35,25 @@ class App extends Component {
   componentWillMount(){
     catStore.on('message', this.updateMessage.bind(this))
     userStore.on('message', this.updateUserMessage.bind(this))
+    userStore.on('login', this.handleLogin.bind(this))
+  }
+
+  handleLogin(){
+    this.setState({
+      currentUser: userStore.getUser()
+    })
+  }
+
+  login(){
+    if(this.state.currentUser){
+      return(<a onClick={this.handleLogout.bind(this)}>{this.state.currentUser.email}</a>)
+    } else {
+      return(<Link to="/login">Login</Link>)
+    }
+  }
+
+  handleLogout(){
+    userLogout()
   }
 
   render() {
@@ -46,7 +67,7 @@ class App extends Component {
                 <Link to="/">Home</Link> |
                 <Link to="/add">Add Cat</Link> |
                 <Link to="/register">Register</Link> |
-                <Link to="/login">Login</Link>
+                {this.login()}
               </div>
             </div>
 

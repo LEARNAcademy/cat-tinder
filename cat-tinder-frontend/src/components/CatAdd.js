@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
-import {addCat} from '../actions'
+import {addCat, loginOrRedirect} from '../actions'
 import userStore from '../stores/UserStore'
 import ImagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
@@ -36,23 +36,16 @@ class CatAdd extends Component {
   }
 
   componentWillMount(){
-    let currentUser = userStore.getUser()
-    if(currentUser === null){
-      this.props.history.push("/login")
-      return false
-    }
+    debugger
+    return loginOrRedirect(this.props)
   }
 
   componentWillUpdate(){
-    let currentUser = userStore.getUser()
-    if(currentUser === null){
-      this.props.history.push("/login")
-      return false
-    }
+    debugger
+    return loginOrRedirect(this.props)
   }
 
   handleImage(err, response){
-    debugger
     if(err){
       //TODO
     } else {
